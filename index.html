@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <title>Image Gallery</title>
+</head>
+<body>
+    <hr/>
+    <div class="container bg-light">
+
+        <div class=row>
+
+            <div class="col-md-3">
+                <img src="1.jpg" class="small-img" id="image1"/>
+            </div>
+            <div class="col-md-3">
+                <img src="2.jpg" class="small-img" id="image2"/>
+            </div>
+            <div class="col-md-3">
+                <img src="3.jpg" class="small-img" id="image3"/>
+            </div>
+            <div class="col-md-3">
+                <img src="4.jpg" class="small-img" id="image4"/>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-md-1">
+               <button id="backward" class="btn-dark">&lt;</button>
+            </div>
+            <div class="col-md-10 ">
+                <img src="1.jpg" class="big-img"/>
+            </div>
+            <div class="col-md-1">
+                <button id="forward" class="btn-dark">&gt;</button>
+            </div>
+
+        </div>
+
+    </div>
+    
+</body>
+<script>
+    // On clicking the thumbnail make it the bigger picture
+    $(".small-img").click(function(){
+        $(".big-img").attr('src',$(this).attr('src'))
+    })
+
+    var counter=1
+    
+    // Do virtual click on subsequent images
+    $("#forward").click(function(){
+    counter=counter+1
+    if (counter>4){
+        counter=1
+    }
+    $("#image"+counter).click()
+    })
+
+    $("#backward").click(function(){
+    counter=counter-1
+    if (counter<1){
+            counter=4
+        }
+    $("#image"+counter).click()
+    })
+    
+    var paused=false;
+
+   //Allow user to pause the slide show
+   $(".big-img").click( function(){
+       paused=!paused;
+   })
+
+    // Start slide show
+    setInterval(function(){
+        if(!paused){
+            $("#forward").click()
+        }        
+    },1000)
+
+</script>
+</html>
